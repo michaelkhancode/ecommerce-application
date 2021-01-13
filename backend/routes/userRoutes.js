@@ -3,6 +3,7 @@ import {
   authUser,
   getUserProfile,
   registerUser,
+  updateUserProfile,
 } from "../controllers/userController.js";
 import { protect } from "../middleware/authMiddleware.js";
 const router = express.Router();
@@ -16,6 +17,11 @@ router.post("/login", authUser);
 // route GET -> /api/users/profile
 // access private
 router.route("/profile").get(protect, getUserProfile);
+
+// description: update user profile info
+// route PUT -> /api/users/profile
+// access private
+router.route("/profile").put(protect, updateUserProfile);
 
 // description: create a new user
 // route POST -> /api/users/profile
