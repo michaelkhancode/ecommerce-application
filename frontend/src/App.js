@@ -4,8 +4,9 @@ import Footer from "./components/Footer";
 import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
 import { Container } from "react-bootstrap";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import CartScreen from "./screens/CartScreen";
+import LoginScreen from "./screens/LoginScreen";
 
 export default function App() {
   return (
@@ -13,9 +14,12 @@ export default function App() {
       <Header />
       <main className="py-3">
         <Container>
-          <Route exact path="/" component={HomeScreen} />
-          <Route path="/product/:id" component={ProductScreen} />
-          <Route path="/cart/:id?" component={CartScreen} />
+          <Switch>
+            <Route path="/login" component={LoginScreen} />
+            <Route path="/product/:id" component={ProductScreen} />
+            <Route path="/cart/:id?" component={CartScreen} />
+            <Route path="/" component={HomeScreen} />
+          </Switch>
         </Container>
       </main>
       <Footer />
