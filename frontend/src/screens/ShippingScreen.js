@@ -12,6 +12,7 @@ export default function ShippingScreen() {
   const [city, setCity] = useState();
   const [postal, setPostal] = useState();
   const [country, setCountry] = useState();
+
   const dispatch = useDispatch();
   const submitHandler = (e) => {
     e.preventDefault();
