@@ -8,15 +8,19 @@ import CheckoutSteps from "../components/CheckoutSteps";
 
 export default function ShippingScreen() {
   const history = useHistory();
-  const [address, setAddress] = useState();
-  const [city, setCity] = useState();
-  const [postal, setPostal] = useState();
-  const [country, setCountry] = useState();
+
+  const cart = useSelector((state) => state.cart);
+  const { shippingAddress } = cart;
+
+  const [address, setAddress] = useState(shippingAddress.address);
+  const [city, setCity] = useState(shippingAddress.city);
+  const [postalCode, setpostalCode] = useState(shippingAddress.postalCode);
+  const [country, setCountry] = useState(shippingAddress.country);
 
   const dispatch = useDispatch();
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(saveShippingAdress({ address, city, postal, country }));
+    dispatch(saveShippingAdress({ address, city, postalCode, country }));
     history.push("/payment");
   };
   return (
@@ -46,14 +50,14 @@ export default function ShippingScreen() {
           ></Form.Control>
         </Form.Group>
 
-        <Form.Group controlId="postal">
+        <Form.Group controlId="postalCode">
           <Form.Label>postal Code</Form.Label>
           <Form.Control
             required
             type="text"
             placeholder="Enter postal code"
-            value={postal}
-            onChange={(e) => setPostal(e.target.value)}
+            value={postalCode}
+            onChange={(e) => setpostalCode(e.target.value)}
           ></Form.Control>
         </Form.Group>
 

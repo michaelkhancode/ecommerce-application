@@ -20,7 +20,7 @@ export default function PaymentScreen() {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(savePaymentMethod(paymentMethod));
-    history.push("/payment");
+    history.push("/placeorder");
   };
   return (
     <FormContainer>

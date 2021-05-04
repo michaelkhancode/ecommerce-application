@@ -7,41 +7,33 @@ export default function CheckoutSteps({ step1, step2, step3, step4 }) {
     <Nav className="justify-content-center mb-4">
       <Nav.Item>
         {step1 ? (
-          <Link to="/login">
-            <Nav.Link>Sign In</Nav.Link>
-          </Link>
+          <Link to="/login">Sign In</Link>
         ) : (
-          <Nav.Link disabled>Sign In</Nav.Link>
+          <Link disabled>Sign In</Link>
         )}
       </Nav.Item>
 
       <Nav.Item>
         {step2 ? (
-          <Link to="/shipping">
-            <Nav.Link>Shipping</Nav.Link>
-          </Link>
+          <Link to="/shipping">Shipping</Link>
         ) : (
-          <Nav.Link disabled>Shipping</Nav.Link>
+          <Link disabled>Shipping</Link>
         )}
       </Nav.Item>
 
       <Nav.Item>
         {step3 ? (
-          <Link to="/payment">
-            <Nav.Link>Payment</Nav.Link>
-          </Link>
+          <Link to="/payment">Payment</Link>
         ) : (
-          <Nav.Link disabled>Payment</Nav.Link>
+          <Link disabled>Payment</Link>
         )}
       </Nav.Item>
 
       <Nav.Item>
         {step4 ? (
-          <Link to="/order">
-            <Nav.Link>Place Order</Nav.Link>
-          </Link>
+          <Link to="/order">Place Order</Link>
         ) : (
-          <Nav.Link disabled>Place Order</Nav.Link>
+          <Link disabled>Place Order</Link>
         )}
       </Nav.Item>
     </Nav>
