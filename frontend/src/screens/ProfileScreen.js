@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { Row, Col, Form, Button } from "react-bootstrap";
+import { Row, Col, Form, Button, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { getUserDetails, updateUserDetails } from "../actions/userActions";
+import { orderList } from "../actions/orderActions";
 
 export default function ProfileScreen({ location }) {
   const [email, setEmail] = useState("");
@@ -19,12 +20,17 @@ export default function ProfileScreen({ location }) {
   const { userInfo } = useSelector((state) => state.userLogin);
   const { success } = useSelector((state) => state.userUpdateDetails);
 
+  const { loading: loadingOrders, error: errorOrders, orders } = useSelector(
+    (state) => state.orders
+  );
+
   useEffect(() => {
     if (!userInfo) {
       history.push("/login");
     } else {
       if (!user.name) {
         dispatch(getUserDetails("profile"));
+        dispatch(orderList());
       } else {
         setName(user.name);
         setEmail(user.email);
@@ -93,6 +99,42 @@ export default function ProfileScreen({ location }) {
       </Col>
       <Col md={9}>
         <h2>my orders</h2>
+        {loadingOrders ? (
+          <Loader />
+        ) : errorOrders ? (
+          <Message variant="danger">{errorOrders}</Message>
+        ) : (
+          <Table striped bordered hover responsive className="table-sm">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>DATE</th>
+                <th>TOTAL</th>
+                <th>PAID</th>
+                <th>DELIVERED</th>
+                <th>DETAILS</th>
+              </tr>
+            </thead>
+            <tbody>
+              {orders.map((order) => {
+                return (
+                  <tr key={order._id}>
+                    <td>{order._id}</td>
+                    <td>{order.createdAt}</td>
+                    <td>{order.totalPrice}</td>
+                    <td>{order.isPaid ? "yes" : "no"}</td>
+                    <td>{order.isDelivered ? "yes" : "no"}</td>
+                    <td>
+                      <Button variant="dark" className="btn-sm">
+                        <Link to={`/order/${order._id}`}>details</Link>
+                      </Button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </Table>
+        )}
       </Col>
     </Row>
   );
