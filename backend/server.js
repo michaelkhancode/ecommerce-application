@@ -23,12 +23,10 @@ app.use("/api/users", userRoutes);
 app.use("/api/orders", orderRoutes);
 
 const __dirname = path.resolve();
-console.log(__dirname);
 if (process.env.NODE_ENV == "prod") {
-  console.log(__dirname);
   app.use(express.static(path.join(__dirname, "/frontend/build")));
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "/frontend/build/index.html"));
+    res.sendFile(path.join(__dirname, "/frontend/build/index.html"));
   });
 } else {
   app.get("/", (req, res) => {
@@ -41,5 +39,4 @@ app.use(errorHandler);
 
 app.listen(process.env.PORT, () => {
   console.log(`server up on PORT ${process.env.PORT}`);
-  // console.log(__dirname);
 });
