@@ -18,7 +18,7 @@ import Message from "../components/Message";
 export default function ProductScreen() {
   const param = useParams();
   const history = useHistory();
-  const [qty, setQty] = useState(0);
+  const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
   const { loading, error, product } = useSelector(
     (state) => state.productDetail
@@ -92,7 +92,10 @@ export default function ProductScreen() {
                         <Form.Control
                           as="select"
                           value={qty}
-                          onChange={(e) => setQty(e.target.value)}
+                          onChange={(e) => {
+                            console.log(e.target.value);
+                            setQty(e.target.value);
+                          }}
                         >
                           {[...Array(product.countInStock).keys()].map((x) => (
                             <option key={x + 1} value={x + 1}>
